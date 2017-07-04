@@ -79,6 +79,7 @@
     <Compile Include="Model\IDrawable.cs" />
     <Compile Include="Model\Game.cs" />
     <Compile Include="Model\ModelBase.cs" />
+    <Compile Include="Model\Parts\Block.cs" />
     <Compile Include="Model\Parts\I.cs" />
     <Compile Include="Model\Parts\J.cs" />
     <Compile Include="Model\Parts\L.cs" />

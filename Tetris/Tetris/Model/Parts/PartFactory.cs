@@ -10,7 +10,8 @@ namespace Tetris.Model
         {
             var values = Enum.GetValues(typeof(PartType));
             var part = (PartType)values.GetValue(new Random().Next(values.Length));
-            return CreatePart(part);
+            var temp = CreatePart(part);
+            return temp;
         }
 
         private Part CreatePart(PartType type)

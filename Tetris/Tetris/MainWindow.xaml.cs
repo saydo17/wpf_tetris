@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+using System.Windows.Input;
 using System.Windows.Threading;
 using Tetris.Model;
 using Tetris.ViewModel;
@@ -13,8 +15,18 @@ namespace Tetris
         {
             InitializeComponent();
             _game = new Game(GameCanvas);
-            DispatcherTimer gameTimer = new DispatcherTimer(DispatcherPriority.Render);
-            gameTimer.Tick += _game.Tick;
+            DataContext = this;
+
+        }
+
+        public Game Game
+        {
+            get { return _game; }
+        }
+
+        private void MainWindow_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            _game.OnKeyDown(sender, e);
         }
     }
 }
