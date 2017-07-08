@@ -8,9 +8,16 @@
         Title="Tetris" KeyDown="MainWindow_OnKeyDown">
 
     <StackPanel>
-        <Border BorderThickness="2" BorderBrush="DarkGray">
-            <TextBlock x:Name="Score" Text="{Binding Game.Player.Score}" FontSize="52"></TextBlock>
-        </Border>
+        <DockPanel LastChildFill="False" Background="DarkSlateGray">
+            <StackPanel DockPanel.Dock="Left" >
+                <Label Content="Score" Foreground="White"/>
+                <TextBlock x:Name="Score" Text="{Binding Game.Player.Score}" FontSize="52" Foreground="White"/>
+            </StackPanel>
+            <StackPanel DockPanel.Dock="Right">
+                <Label Content="Level" HorizontalAlignment="Right" Foreground="White"/>
+                <TextBlock x:Name="Level" Text="{Binding Game.Level}" HorizontalAlignment="Right" FontSize="52" Foreground="White"/>
+            </StackPanel>
+        </DockPanel>
         <Border BorderThickness="2" BorderBrush="DarkGray">
 
             <Viewbox Width="300">

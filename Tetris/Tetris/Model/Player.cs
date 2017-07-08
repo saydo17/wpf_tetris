@@ -14,9 +14,21 @@ namespace Tetris.Model
         private Part _part;
         private readonly Arena _arena;
 
+        public int LinesCleared
+        {
+            get { return _linesCleared; }
+            set
+            {
+                if(_linesCleared == value) return;
+                _linesCleared = value;
+                OnPropertyChanged();
+            }
+        }
+
         public Player(PartFactory partFactory, Arena arena)
         {
             _arena = arena;
+            _linesCleared = 0;
             _partFactory = partFactory;
             Score = 0;
             Reset();
@@ -25,6 +37,7 @@ namespace Tetris.Model
 
         public bool IsAlive { get; set; }
         public EventHandler Died;
+        private int _linesCleared;
 
         private void Reset()
         {

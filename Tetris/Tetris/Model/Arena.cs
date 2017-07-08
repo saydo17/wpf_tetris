@@ -57,8 +57,7 @@ namespace Tetris.Model
 
         public int Sweep()
         {
-            var rowCount = 1;
-            var score = 0;
+            var rowCount = 0;
             for (int i = Height-1; i > 0; i--)
             {
                 if (_blocks.Count(b => b.Position.Y == i) == Width)
@@ -66,14 +65,11 @@ namespace Tetris.Model
                     _blocks.RemoveAll(b => b.Position.Y == i);
                     ShiftBlocksDown(i);
                     i++;
-
-                    score += rowCount * 10;
-                    rowCount *= 2;
-
+                    rowCount++;
                 }
 
             }
-            return score;
+            return rowCount;
         }
 
         private void ShiftBlocksDown(int y)

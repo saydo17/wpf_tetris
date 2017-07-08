@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Resources;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -14,6 +15,7 @@ namespace Tetris.Model
         private Arena _arena;
         private DispatcherTimer timer;
         private bool _isPaused;
+        private const int GameSpeed = 500;
 
         public Game(Canvas gameCanvas)
         {
@@ -21,8 +23,9 @@ namespace Tetris.Model
             _partFactory = new PartFactory();
             Reset();
 
+
             timer = new DispatcherTimer(DispatcherPriority.Render);
-            timer.Interval = TimeSpan.FromMilliseconds(500);
+            timer.Interval = TimeSpan.FromMilliseconds(GameSpeed);
             timer.Tick += Tick;
             timer.Start();
         }
@@ -32,12 +35,18 @@ namespace Tetris.Model
             _arena = new Arena(20, 10);
             _player = new Player(_partFactory, _arena);
             _player.Died += OnPlayerDied;
+            _player.PropertyChanged += PlayerOnPropertyChanged;
+        }
+
+        private void PlayerOnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if(e.PropertyName == nameof(_player.LinesCleared))
+                OnPropertyChanged(nameof(Level));
         }
 
         private void OnPlayerDied(object sender, EventArgs e)
         {
             timer.Stop();
-            //_player.Died -= OnPlayerDied;
         }
 
         public Player Player
@@ -51,17 +60,22 @@ namespace Tetris.Model
             }
         }
 
+        public int Level => Player.LinesCleared / 10;
 
         private void Tick(object sender, EventArgs e)
         {
             DropAndSweep();
+            if(!(timer.Interval <= TimeSpan.FromMilliseconds(10)))
+                timer.Interval = TimeSpan.FromMilliseconds(GameSpeed - 10 * _player.LinesCleared / 10);
             Draw();
         }
 
         private void DropAndSweep()
         {
             _player.MoveDown();
-            _player.Score += _arena.Sweep();
+            var linesCleared = _arena.Sweep();
+            _player.Score += (int) (5 * Math.Pow(2, linesCleared+1) - 10);
+            _player.LinesCleared += linesCleared;
         }
 
         private void Pause()
