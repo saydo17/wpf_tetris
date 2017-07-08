@@ -1,4 +1,6 @@
-﻿using System.Windows.Media;
+﻿using System;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace Tetris.Model
 {
@@ -13,7 +15,7 @@ namespace Tetris.Model
                 {1, 1},
                 {1, 1},
             };
-
+            ImageBrush = new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Content/RedBlock.png")));
             Color = Colors.Red;
         }
     }

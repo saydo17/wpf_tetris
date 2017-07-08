@@ -11,10 +11,13 @@ namespace Tetris.Model
 
         private Color Color { get; }
 
-        public Block(double x, double y, Color color)
+        private ImageBrush ImageBrush { get; }
+
+        public Block(double x, double y, Color color, ImageBrush imageBrush = null)
         {
             Position = new Point(x, y);
             Color = color;
+            ImageBrush = imageBrush;
         }
 
         public void Draw(Canvas canvas)
@@ -25,6 +28,10 @@ namespace Tetris.Model
                 Height = 10,
                 Fill = new SolidColorBrush(Color)
             };
+            if (ImageBrush != null)
+            {
+                rect.Fill = ImageBrush;
+            }
             rect.SetValue(Canvas.LeftProperty, Position.X*10);
             rect.SetValue(Canvas.TopProperty, Position.Y*10);
             canvas.Children.Add(rect);

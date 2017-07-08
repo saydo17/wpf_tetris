@@ -1,4 +1,6 @@
-﻿using System.Windows.Media;
+﻿using System;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace Tetris.Model
 {
@@ -14,6 +16,7 @@ namespace Tetris.Model
                 {1, 1, 0},
                 {0, 1, 1}
             };
+            ImageBrush = new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Content/DarkGreenBlock.png")));
             Color = Colors.Green;
         }
     }

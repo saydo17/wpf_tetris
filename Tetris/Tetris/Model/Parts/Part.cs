@@ -21,6 +21,8 @@ namespace Tetris.Model
 
         protected Color Color { get; set; }
 
+        protected ImageBrush ImageBrush { get; set; }
+
         public IEnumerable<Block> Blocks
         {
             get
@@ -32,7 +34,12 @@ namespace Tetris.Model
                     {
                         if (Matrix[i, j] == 1)
                         {
-                            list.Add(new Block(PositionX + j, PositionY + i, Color));
+                            if(ImageBrush == null)
+                                list.Add(new Block(PositionX + j, PositionY + i, Color));
+                            else
+                            {
+                                list.Add(new Block(PositionX +j, PositionY + i, Color, ImageBrush));
+                            }
                         }
                     }
                 }
